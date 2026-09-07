@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SkillForge AI</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root {
+  --primary-bg: #2C3E50;
+  --primary-text: #ffffff;
+  --accent-bg: #E67E22;
+  --accent-text: #ffffff;
+  --neutral-bg: #f9f9f9;
+  --neutral-text: #333333;
+  --max-width: 1200px;
+  --gap: 1.5rem;
+  --radius: 8px;
+  --transition: 0.3s ease;
+  --font-sans: 'Helvetica Neue', Arial, sans-serif;
+}
+* { box-sizing: border-box; margin:0; padding:0; }
+body {
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  color: var(--neutral-text);
+}
+a { color: inherit; text-decoration: none; }
+header {
+  background: var(--primary-bg);
+  color: var(--primary-text);
+  padding: 1rem;
+}
+header nav {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+header nav ul {
+  list-style: none;
+  display: flex;
+  gap: var(--gap);
+}
+header nav a {
+  color: var(--primary-text);
+  font-weight: 500;
+}
+section {
+  padding: 4rem 1rem;
+}
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+button, .btn {
+  cursor: pointer;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  transition: var(--transition);
+}
+.btn-primary {
+  background: var(--primary-bg);
+  color: var(--primary-text);
+}
+.btn-primary:hover { background: #1a252f; }
+.btn-accent {
+  background: var(--accent-bg);
+  color: var(--accent-text);
+}
+.btn-accent:hover { background: #c65d1a; }
+.hero {
+  background: url('https://picsum.photos/seed/hero-banner/1200/600') center/cover no-repeat;
+  color: var(--primary-text);
+  text-align: center;
+  position: relative;
+}
+.hero::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(44,62,80,0.7);
+}
+.hero .content {
+  position:relative;
+  max-width: 800px;
+  margin:auto;
+}
+.about {
+  background: var(--neutral-bg);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap);
+  align-items: center;
+}
+.about img {
+  flex:1 1 300px;
+  border-radius: var(--radius);
+}
+.about .text {
+  flex:1 1 300px;
+}
+.courses, .projects, .resources {
+  background: var(--accent-bg);
+  color: var(--accent-text);
+}
+.grid {
+  display: grid;
+  gap: var(--gap);
+}
+.grid-3 { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+.grid-4 { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+.grid-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+.card {
+  background: #fff;
+  color: var(--neutral-text);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.card img { width:100%; height:auto; }
+.card .card-body { padding:1rem; flex:1; display:flex; flex-direction:column; }
+.card .card-body h3 { margin-bottom:0.5rem; }
+.card .card-body p { flex:1; }
+.card .card-body .btn { align-self:flex-start; margin-top:1rem; }
+.learning-roadmap {
+  background: var(--neutral-bg);
+}
+.step-list {
+  list-style:none;
+  margin-top:2rem;
+}
+.step-item {
+  display: flex;
+  align-items: flex-start;
+  gap:1rem;
+  margin-bottom:1.5rem;
+}
+.step-item img {
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  flex-shrink:0;
+}
+.testimonials {
+  background: var(--accent-bg);
+  color: var(--accent-text);
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+}
+.testimonial-slider {
+  display: flex;
+  gap: var(--gap);
+  padding: 2rem 0;
+}
+.testimonial-card {
+  min-width: 300px;
+  background:#fff;
+  color:#333;
+  border-radius: var(--radius);
+  padding:1rem;
+  scroll-snap-align:center;
+  flex-shrink:0;
+}
+.testimonial-card img {
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  margin-bottom:0.5rem;
+}
+.faq {
+  background: var(--neutral-bg);
+}
+details {
+  background:#fff;
+  margin-bottom:0.5rem;
+  border-radius: var(--radius);
+  padding:0.75rem 1rem;
+}
+summary {
+  font-weight:600;
+  cursor:pointer;
+}
+.contact-form {
+  background: var(--primary-bg);
+  color: var(--primary-text);
+}
+.contact-form .form-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap);
+}
+.contact-form form {
+  flex:1 1 300px;
+  display:flex;
+  flex-direction:column;
+  gap:0.75rem;
+}
+.contact-form input, .contact-form textarea {
+  padding:0.75rem;
+  border:none;
+  border-radius: var(--radius);
+}
+.contact-form textarea { resize:vertical; min-height:120px; }
+.contact-form .map {
+  flex:1 1 300px;
+}
+@media (max-width:768px){
+  .about, .contact-form .form-container { flex-direction:column; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="logo"><strong>SkillForge AI</strong></div>
+    <ul>
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#courses">Courses</a></li>
+      <li><a href="#learning-roadmap">Roadmap</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#resources">Resources</a></li>
+      <li><a href="#testimonials">Testimonials</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contact-form">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section id="hero" class="hero">
+  <div class="content container">
+    <h1>Build the Future of AI, One Skill at a Time</h1>
+    <p>Join SkillForge AI and dive into structured courses, practical projects, and a step‑by‑step learning roadmap designed for college and engineering students eager to become AI developers.</p>
+    <a href="#courses" class="btn btn-primary">Start Your Journey</a>
+  </div>
+</section>
+
+<section id="about" class="about container">
+  <img src="https://picsum.photos/seed/about-team/600/400" alt="Our team">
+  <div class="text">
+    <h2>Our Mission: Empower Tomorrow’s AI Innovators</h2>
+    <p>SkillForge AI was founded by a team of industry‑experienced AI researchers and educators who believe that anyone with curiosity can master AI. We provide a community‑driven platform that blends theory with hands‑on practice.</p>
+  </div>
+</section>
+
+<section id="courses" class="courses">
+  <div class="container">
+    <h2>Explore Our AI Mastery Courses</h2>
+    <p>From foundational Machine Learning to cutting‑edge Generative and Agentic AI, our catalog offers beginner‑friendly modules that build toward real‑world expertise.</p>
+    <div class="grid grid-3">
+      <div class="card">
+        <img src="https://picsum.photos/seed/course-ml/400/250" alt="Machine Learning">
+        <div class="card-body">
+          <h3>Machine Learning Basics</h3>
+          <p>Learn core concepts, algorithms, and practical implementations using Python.</p>
+          <a href="#" class="btn btn-primary">Enroll</a>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://picsum.photos/seed/course-genai/400/250" alt="Generative AI">
+        <div class="card-body">
+          <h3>Generative AI Foundations</h3>
+          <p>Explore GANs, diffusion models, and creative AI applications.</p>
+          <a href="#" class="btn btn-primary">Enroll</a>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://picsum.photos/seed/course-agentic/400/250" alt="Agentic AI">
+        <div class="card-body">
+          <h3>Agentic AI Systems</h3>
+          <p>Build autonomous agents that can plan, act, and learn in dynamic environments.</p>
+          <a href="#" class="btn btn-primary">Enroll</a>
+        </div>
+      </div>
+    </div>
+    <a href="#" class="btn btn-accent" style="margin-top:1rem;">Browse Courses</a>
+  </div>
+</section>
+
+<section id="learning-roadmap" class="learning-roadmap container">
+  <h2>Your AI Learning Pathway</h2>
+  <p>Follow our structured roadmap that takes you from core concepts to advanced techniques, ensuring you gain the skills needed to build impactful AI solutions.</p>
+  <ul class="step-list">
+    <li class="step-item">
+      <img src="https://picsum.photos/seed/step-foundations/60/60" alt="Foundations">
+      <div>
+        <h4>Foundations</h4>
+        <p>Mathematics, Python, and basic data handling.</p>
+      </div>
+    </li>
+    <li class="step-item">
+      <img src="https://picsum.photos/seed/step-ml/60/60" alt="Machine Learning">
+      <div>
+        <h4>Machine Learning</h4>
+        <p>Supervised, unsupervised, and evaluation techniques.</p>
+      </div>
+    </li>
+    <li class="step-item">
+      <img src="https://picsum.photos/seed/step-genai/60/60" alt="Generative AI">
+      <div>
+        <h4>Generative AI</h4>
+        <p>GANs, diffusion, and creative model building.</p>
+      </div>
+    </li>
+    <li class="step-item">
+      <img src="https://picsum.photos/seed/step-agentic/60/60" alt="Agentic AI">
+      <div>
+        <h4>Agentic AI</h4>
+        <p>Designing autonomous agents and reinforcement learning.</p>
+      </div>
+    </li>
+  </ul>
+</section>
+
+<section id="projects" class="projects">
+  <div class="container">
+    <h2>Showcase Your AI Projects</h2>
+    <p>Turn theory into practice with project challenges that let you build, iterate, and share your work with a community of peers and mentors.</p>
+    <div class="grid grid-4">
+      <div class="card">
+        <img src="https://picsum.photos/seed/project-1/300/200" alt="Project 1">
+        <div class="card-body">
+          <h3>Image Classification Challenge</h3>
+          <p>Build a model that classifies images into 10 categories.</p>
+          <a href="#" class="btn btn-primary">View</a>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://picsum.photos/seed/project-2/300/200" alt="Project 2">
+        <div class="card-body">
+          <h3>Chatbot with Retrieval</h3>
+          <p>Create a conversational agent that uses external knowledge.</p>
+          <a href="#" class="btn btn-primary">View</a>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://picsum.photos/seed/project-3/300/200" alt="Project 3">
+        <div class="card-body">
+          <h3>Style Transfer Art</h3>
+          <p>Apply artistic styles to photos using neural networks.</p>
+          <a href="#" class="btn btn-primary">View</a>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://picsum.photos/seed/project-4/300/200" alt="Project 4">
+        <div class="card-body">
+          <h3>Reinforcement Learning Game</h3>
+          <p>Train an agent to play a simple 2D game.</p>
+          <a href="#" class="btn btn-primary">View</a>
+        </div>
+      </div>
+    </div>
+    <a href="#" class="btn btn-accent" style="margin-top:1rem;">View Projects</a>
+  </div>
+</section>
+
+<section id="resources" class="resources">
+  <div class="container">
+    <h2>Expand Your Knowledge</h2>
+    <p>Access curated articles, tutorials, datasets, and toolkits that complement your coursework and keep you ahead of industry trends.</p>
+    <div class="grid grid-2">
+      <div class="card">
+        <div class="card-body">
+          <h3>AI Research Paper Hub</h3>
+          <a href="#" class="btn btn-primary">Visit</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <h3>Dataset Repository</h3>
+          <a href="#" class="btn btn-primary">Explore</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <h3>Toolkits & Libraries</h3>
+          <a href="#" class="btn btn-primary">Download</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <h3>Weekly Tutorial Series</h3>
+          <a href="#" class="btn btn-primary">Watch</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="testimonials" class="testimonials">
+  <div class="container">
+    <h2>What Our Students Say</h2>
+    <p>Hear from recent graduates who’ve landed internships, built portfolio projects, and advanced their careers through SkillForge AI.</p>
+    <div class="testimonial-slider">
+      <div class="testimonial-card">
+        <img src="https://picsum.photos/seed/testimonial-1/60/60" alt="Student 1">
+        <blockquote>"The hands‑on projects gave me a portfolio that landed me an internship at a top AI lab."</blockquote>
+        <cite>— Alex Rivera</cite>
+      </div>
+      <div class="testimonial-card">
+        <img src="https://picsum.photos/seed/testimonial-2/60/60" alt="Student 2">
+        <blockquote>"I went from zero knowledge to building my own GAN in just a few months."</blockquote>
+        <cite>— Priya Singh</cite>
+      </div>
+      <div class="testimonial-card">
+        <img src="https://picsum.photos/seed/testimonial-3/60/60" alt="Student 3">
+        <blockquote>"The roadmap kept me on track and the community support was amazing."</blockquote>
+        <cite>— Marco Liu</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq" class="faq container">
+  <h2>Got Questions?</h2>
+  <p>Find answers to common queries about enrollment, prerequisites, certifications, and how to get the most out of the platform.</p>
+  <details>
+    <summary>Do I need prior AI experience?</summary>
+    <p>No. Our courses start from fundamentals and progress to advanced topics.</p>
+  </details>
+  <details>
+    <summary>What certification do I receive?</summary>
+    <p>Upon completion, you earn a SkillForge AI certificate that can be added to your resume and LinkedIn.</p>
+  </details>
+  <details>
+    <summary>Can I access the content offline?</summary>
+    <p>Yes, downloadable resources are available for all enrolled students.</p>
+  </details>
+</section>
+
+<section id="contact-form" class="contact-form">
+  <div class="container">
+    <h2>Get in Touch</h2>
+    <p>Have questions, need support, or want to partner with us? Fill out the form below or reach us at contact@skillforge.ai.</p>
+    <div class="form-container">
+      <form>
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <textarea name="message" placeholder="Your Message" required></textarea>
+        <button type="submit" class="btn btn-primary">Send Message</button>
+      </form>
+      <div class="map">
+        <img src="https://picsum.photos/seed/map-location/600/400" alt="Map location" style="width:100%; border-radius:var(--radius);">
+        <p style="margin-top:0.5rem;">SkillForge AI HQ<br>123 Innovation Drive, Tech City</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer style="background:#1a252f; color:#fff; text-align:center; padding:1rem;">
+  <p>&copy; 2026 SkillForge AI. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
